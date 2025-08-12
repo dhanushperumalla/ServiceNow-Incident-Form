@@ -3,8 +3,6 @@
 A modern, responsive web form for creating ServiceNow incidents.  
 This project provides a simple HTML/CSS/JS interface for submitting incident details, designed for easy integration with ServiceNow or as a static demo.
 
-![ServiceNow Incident Form Screenshot](UI.png)
-
 ---
 
 ## Features
@@ -46,9 +44,6 @@ To enable real incident creation, you need a backend API at `/api/incidents` tha
 ---
 
 ## Screenshot
-
-> **Note:**  
-> Replace `UI.png` with your own screenshot if you customize the UI.
 
 ![Form Screenshot](UI.png)
 
