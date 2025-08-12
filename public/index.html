@@ -4,41 +4,120 @@
   <meta charset="utf-8" />
   <title>Create ServiceNow Incident</title>
   <style>
-    body { font-family: Arial, sans-serif; padding: 20px; max-width: 700px; margin: auto; }
-    label { display:block; margin-top:10px; }
-    input, textarea, select { width:100%; padding:8px; margin-top:6px; box-sizing:border-box; }
-    button { margin-top:12px; padding:10px 16px; }
-    #result { margin-top:14px; padding:10px; border-radius:6px; }
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      padding: 32px;
+      max-width: 480px;
+      margin: 40px auto;
+      background: #f6f8fa;
+    }
+    h2 {
+      text-align: center;
+      color: #22223b;
+      margin-bottom: 28px;
+      letter-spacing: 1px;
+    }
+    form {
+      background: #fff;
+      border-radius: 14px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+      padding: 32px 28px 24px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    label {
+      font-weight: 500;
+      color: #22223b;
+      margin-bottom: 4px;
+      letter-spacing: 0.2px;
+    }
+    input, textarea, select {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1.5px solid #c9c9c9;
+      border-radius: 7px;
+      font-size: 1rem;
+      margin-top: 6px;
+      background: #f8fafc;
+      transition: border-color 0.2s;
+      outline: none;
+      box-sizing: border-box;
+    }
+    input:focus, textarea:focus, select:focus {
+      border-color: #4f8cff;
+      background: #fff;
+    }
+    textarea {
+      resize: vertical;
+      min-height: 80px;
+      max-height: 220px;
+    }
+    button {
+      margin-top: 10px;
+      padding: 12px 0;
+      background: linear-gradient(90deg, #4f8cff 0%, #4361ee 100%);
+      color: #fff;
+      border: none;
+      border-radius: 7px;
+      font-size: 1.08rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(79,140,255,0.08);
+      transition: background 0.18s;
+      letter-spacing: 0.5px;
+    }
+    button:hover, button:focus {
+      background: linear-gradient(90deg, #4361ee 0%, #4f8cff 100%);
+    }
+    #result {
+      margin-top: 18px;
+      padding: 14px 18px;
+      border-radius: 8px;
+      font-size: 1.02rem;
+      min-height: 32px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+      word-break: break-word;
+    }
+    @media (max-width: 600px) {
+      body { padding: 10px; }
+      form { padding: 18px 8px 14px 8px; }
+    }
   </style>
 </head>
 <body>
   <h2>Create Incident</h2>
-  <form id="incidentForm">
-    <label>Short description
+  <form id="incidentForm" autocomplete="off">
+    <div>
+      <label for="short_description">Short description</label>
       <input type="text" id="short_description" required placeholder="Brief summary">
-    </label>
+    </div>
 
-    <label>Description
+    <div>
+      <label for="description">Description</label>
       <textarea id="description" rows="5" required placeholder="Full description"></textarea>
-    </label>
+    </div>
 
-    <label>Urgency
-      <select id="urgency">
-        <option value="">-- leave default --</option>
-        <option value="1">1 - High</option>
-        <option value="2">2 - Medium</option>
-        <option value="3">3 - Low</option>
-      </select>
-    </label>
-
-    <label>Impact
-      <select id="impact">
-        <option value="">-- leave default --</option>
-        <option value="1">1 - High</option>
-        <option value="2">2 - Medium</option>
-        <option value="3">3 - Low</option>
-      </select>
-    </label>
+    <div style="display: flex; gap: 16px;">
+      <div style="flex:1;">
+        <label for="urgency">Urgency</label>
+        <select id="urgency">
+          <option value="">-- leave default --</option>
+          <option value="1">1 - High</option>
+          <option value="2">2 - Medium</option>
+          <option value="3">3 - Low</option>
+        </select>
+      </div>
+      <div style="flex:1;">
+        <label for="impact">Impact</label>
+        <select id="impact">
+          <option value="">-- leave default --</option>
+          <option value="1">1 - High</option>
+          <option value="2">2 - Medium</option>
+          <option value="3">3 - Low</option>
+        </select>
+      </div>
+    </div>
 
     <button type="submit">Submit</button>
   </form>
