@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Create ServiceNow Incident</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; max-width: 700px; margin: auto; }
+    label { display:block; margin-top:10px; }
+    input, textarea, select { width:100%; padding:8px; margin-top:6px; box-sizing:border-box; }
+    button { margin-top:12px; padding:10px 16px; }
+    #result { margin-top:14px; padding:10px; border-radius:6px; }
+  </style>
+</head>
+<body>
+  <h2>Create Incident</h2>
+  <form id="incidentForm">
+    <label>Short description
+      <input type="text" id="short_description" required placeholder="Brief summary">
+    </label>
+
+    <label>Description
+      <textarea id="description" rows="5" required placeholder="Full description"></textarea>
+    </label>
+
+    <label>Urgency
+      <select id="urgency">
+        <option value="">-- leave default --</option>
+        <option value="1">1 - High</option>
+        <option value="2">2 - Medium</option>
+        <option value="3">3 - Low</option>
+      </select>
+    </label>
+
+    <label>Impact
+      <select id="impact">
+        <option value="">-- leave default --</option>
+        <option value="1">1 - High</option>
+        <option value="2">2 - Medium</option>
+        <option value="3">3 - Low</option>
+      </select>
+    </label>
+
+    <button type="submit">Submit</button>
+  </form>
+
+  <div id="result"></div>
+
+  <script>
+    const form = document.getElementById('incidentForm');
+    const resultDiv = document.getElementById('result');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      resultDiv.style.background = '';
+      resultDiv.textContent = 'Creating incident...';
+
+      const payload = {
+        short_description: document.getElementById('short_description').value.trim(),
+        description: document.getElementById('description').value.trim(),
+        urgency: document.getElementById('urgency').value || undefined,
+        impact: document.getElementById('impact').value || undefined
+      };
+
+      try {
+        const resp = await fetch('/api/incidents', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        const data = await resp.json();
+        if (resp.ok) {
+          resultDiv.style.background = '#e6ffed';
+          resultDiv.innerHTML = `<strong>Incident Created:</strong> ${data.number}<br/>sys_id: ${data.sys_id}`;
+        } else {
+          resultDiv.style.background = '#ffe6e6';
+          resultDiv.innerHTML = `<strong>Error (${resp.status}):</strong> ${JSON.stringify(data)}`;
+        }
+      } catch (err) {
+        resultDiv.style.background = '#ffe6e6';
+        resultDiv.textContent = 'Network error: ' + err.message;
+      }
+    });
+  </script>
+</body>
+</html>
